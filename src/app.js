@@ -26,3 +26,27 @@ const addTodo = (item) => {
 // Pour chaque élément du tableau TODO_ITEMS, on appelle la fonction addTodo en fournissant
 // l'item
 TODO_ITEMS.forEach((item) => addTodo(item));
+
+// On souhaite réagir à chaque fois que le formulaire est soumis
+document.querySelector('form').addEventListener('submit', (event) => {
+    // On souhaite aussi empêcher le rechargement de la page
+    event.preventDefault();
+
+    // On récupère l'input
+    const input = document.querySelector('input[name="todo-text"]');
+
+    // On créé une nouvelle tâche avec pour text la valeur tapée dans l'input
+    const item = {
+        id: Date.now(),
+        text: input.value,
+        done: false,
+    };
+
+    // On appelle la fonction créée plus tôt qui ajoutera la tâche dans le <ul>
+    addTodo(item);
+
+    // On vide l'input et replace le curseur dedans
+    input.value = '';
+    input.focus();
+
+});
